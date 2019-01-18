@@ -31,95 +31,89 @@ def usuario_escolhe_jogada(n, m):
 def partida():
     n = int(input('Quantas peças? '))
     m = int(input('Limite de peças por jogada? '))
+    jogador = ''
+    
+    # Primeira rodada - definir jogador
+    if n % (m + 1) == 0:
+        jogador = 'Você'
+        print('\nVocê começa!')
+    else:
+        jogador = 'O computador'
+        print('\nComputador começa!')
+        
+    # Varíavel de controle
     terminou = False
-    primeira_rodada = True
-    ultimo_jogador = ''
     
     while not terminou:
-        if primeira_rodada:
-            primeira_rodada = False
-            if n % (m + 1) == 0:
-                print('\nVocê começa!')
-                pecas_retiradas = usuario_escolhe_jogada(n, m)
-                n -= pecas_retiradas
+        if jogador == 'Você':
+            pecas_retiradas = usuario_escolhe_jogada(n, m)
+            n -= pecas_retiradas
+            exibe_jogada(jogador, pecas_retiradas, n)
             
-                if n != 0:
-                    if pecas_retiradas == 1:
-                        print('\nVocê tirou uma peça.')
-                    else:
-                        print('\nVocê tirou', pecas_retiradas, 'peças.')
-                    if n == 1:
-                        print('Agora resta apenas uma peça no tabuleiro.')
-                    elif n > 1:
-                        print('Agora restam', n, 'peças no tabuleiro.')
-                    computador_escolhe_jogada(n, m)
-                    ultimo_jogador = 'Você'
-                else:
-                    terminou = True
-                    ultimo_jogador = 'Você'
+            if n != 0:
+                jogador = 'O computador' # Alterna para o computador
             else:
-                print('\nComputador começa!')
-                pecas_retiradas = computador_escolhe_jogada(n, m)
-                n -= pecas_retiradas
-            
-                if n != 0:
-                    if pecas_retiradas == 1:
-                        print('\nO computador tirou uma peça.')
-                    else:
-                        print('\nO computador tirou', pecas_retiradas, 'peças.')
-                    if n == 1:
-                        print('Agora resta apenas uma peça no tabuleiro.')
-                    elif n > 1:
-                        print('Agora restam', n, 'peças no tabuleiro.')
-                    usuario_escolhe_jogada(n, m)
-                    ultimo_jogador = 'O computador'
-                else:
-                    terminou = True
-                    ultimo_jogador = 'O computador'
+                terminou = True
         else:
-            if ultimo_jogador == 'Você':
-                pecas_retiradas = computador_escolhe_jogada(n, m)
-                n -= pecas_retiradas
+            pecas_retiradas = computador_escolhe_jogada(n, m)
+            n -= pecas_retiradas
+            exibe_jogada(jogador, pecas_retiradas, n)
             
-                if n != 0:
-                    if pecas_retiradas == 1:
-                        print('\nO computador tirou uma peça.')
-                    else:
-                        print('\nO computador tirou', pecas_retiradas, 'peças.')
-                    if n == 1:
-                        print('Agora resta apenas uma peça no tabuleiro.')
-                    elif n > 1:
-                        print('Agora restam', n, 'peças no tabuleiro.')
-                    usuario_escolhe_jogada(n, m)
-                    ultimo_jogador = 'O computador'
-                else:
-                    terminou = True
-                    ultimo_jogador = 'O computador'
+            if n != 0:
+                jogador = 'Você' # Alterna para o usuário
             else:
-                pecas_retiradas = usuario_escolhe_jogada(n, m)
-                n -= pecas_retiradas
-            
-                if n != 0:
-                    if pecas_retiradas == 1:
-                        print('\nVocê tirou uma peça.')
-                    else:
-                        print('\nVocê tirou', pecas_retiradas, 'peças.')
-                    if n == 1:
-                        print('Agora resta apenas uma peça no tabuleiro.')
-                    elif n > 1:
-                        print('Agora restam', n, 'peças no tabuleiro.')
-                    computador_escolhe_jogada(n, m)
-                    ultimo_jogador = 'Você'
-                else:
-                    terminou = True
-                    ultimo_jogador = 'Você'
+                terminou = True
                 
-    print('Fim de jogo!', ultimo_jogador, 'ganhou!')
+    print('Fim de jogo!', jogador, 'ganhou!')
+    
+    '''
+    Jogo finalizado. Dessa forma, o jogador corrente é o vencedor.
+    Retorno para contar os vencedores em um campeonato.
+    '''
+    return jogador 
 
 #------------------------------------------------------------------------------
     
 def campeonato():
-    return True
+    vitorias_computador = 0
+    vitorias_usuario = 0
+    rodada = 1
+    
+    while rodada <=3:    
+        print('')
+        print('**** Rodada', rodada, '****')
+        vencedor = partida()
+        
+        if vencedor == 'Você':
+            vitorias_usuario += 1
+        else:
+            vitorias_computador += 1
+            
+        rodada += 1
+        
+    print('')
+    print('**** Final do campeonato! ****')
+    print('')
+    print('Placar: Você', vitorias_usuario, 'X', vitorias_computador, 'Computador')
+    
+
+#------------------------------------------------------------------------------
+    
+def exibe_jogada(jogador, pecas_retiradas, pecas_restantes):
+    # Exibe o número de peças retiradas
+    if pecas_retiradas == 1:
+        print('')
+        print(jogador, 'tirou uma peça.')
+    else:
+        print('')
+        print(jogador, 'tirou', pecas_retiradas, 'peças.')
+        
+    # Exibe o número de peças restantes
+    if pecas_restantes == 1:
+        print('Agora resta apenas uma peça no tabuleiro.')
+    elif pecas_restantes > 1:
+        print('Agora restam', pecas_restantes, 'peças no tabuleiro.')
+
 
 #------------------------------------------------------------------------------
     
@@ -133,8 +127,10 @@ def main():
         partida()
     else:
         print('\nVoce escolheu um campeonato!')
+        campeonato()
         
 #------------------------------------------------------------------------------
 
 main()
+
     
