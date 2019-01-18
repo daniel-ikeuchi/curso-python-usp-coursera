@@ -7,10 +7,13 @@ Created on Thu Jan 17 17:50:00 2019
 Jogo Nim - projeto programa completo, aula 06 do curso Introdução à Ciência
 da Computação com Python Parte 1 (Coursera/USP)
 """
+#------------------------------------------------------------------------------
 
 def computador_escolhe_jogada(n, m):
     return n % (m + 1)
 
+#------------------------------------------------------------------------------
+    
 def usuario_escolhe_jogada(n, m):
     jogada_valida = False
                 
@@ -22,13 +25,15 @@ def usuario_escolhe_jogada(n, m):
             jogada_valida = True
     
     return jogada
+
+#------------------------------------------------------------------------------
     
 def partida():
     n = int(input('Quantas peças? '))
     m = int(input('Limite de peças por jogada? '))
     terminou = False
     primeira_rodada = True
-    vencedor = ''
+    ultimo_jogador = ''
     
     while not terminou:
         if primeira_rodada:
@@ -48,9 +53,10 @@ def partida():
                     elif n > 1:
                         print('Agora restam', n, 'peças no tabuleiro.')
                     computador_escolhe_jogada(n, m)
+                    ultimo_jogador = 'Você'
                 else:
                     terminou = True
-                    vencedor = 'Você'
+                    ultimo_jogador = 'Você'
             else:
                 print('\nComputador começa!')
                 pecas_retiradas = computador_escolhe_jogada(n, m)
@@ -66,16 +72,56 @@ def partida():
                     elif n > 1:
                         print('Agora restam', n, 'peças no tabuleiro.')
                     usuario_escolhe_jogada(n, m)
+                    ultimo_jogador = 'O computador'
                 else:
                     terminou = True
-                    vencedor = 'O computador'
+                    ultimo_jogador = 'O computador'
         else:
+            if ultimo_jogador == 'Você':
+                pecas_retiradas = computador_escolhe_jogada(n, m)
+                n -= pecas_retiradas
             
+                if n != 0:
+                    if pecas_retiradas == 1:
+                        print('\nO computador tirou uma peça.')
+                    else:
+                        print('\nO computador tirou', pecas_retiradas, 'peças.')
+                    if n == 1:
+                        print('Agora resta apenas uma peça no tabuleiro.')
+                    elif n > 1:
+                        print('Agora restam', n, 'peças no tabuleiro.')
+                    usuario_escolhe_jogada(n, m)
+                    ultimo_jogador = 'O computador'
+                else:
+                    terminou = True
+                    ultimo_jogador = 'O computador'
+            else:
+                pecas_retiradas = usuario_escolhe_jogada(n, m)
+                n -= pecas_retiradas
+            
+                if n != 0:
+                    if pecas_retiradas == 1:
+                        print('\nVocê tirou uma peça.')
+                    else:
+                        print('\nVocê tirou', pecas_retiradas, 'peças.')
+                    if n == 1:
+                        print('Agora resta apenas uma peça no tabuleiro.')
+                    elif n > 1:
+                        print('Agora restam', n, 'peças no tabuleiro.')
+                    computador_escolhe_jogada(n, m)
+                    ultimo_jogador = 'Você'
+                else:
+                    terminou = True
+                    ultimo_jogador = 'Você'
                 
-    print('Fim de jogo!', vencedor, 'ganhou!')
+    print('Fim de jogo!', ultimo_jogador, 'ganhou!')
+
+#------------------------------------------------------------------------------
     
 def campeonato():
     return True
+
+#------------------------------------------------------------------------------
     
 def main():
     escolha = int(input('Bem-vindo ao jogo do NIM! Escolha:\
