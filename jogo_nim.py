@@ -19,7 +19,7 @@ def usuario_escolhe_jogada(n, m):
                 
     while not jogada_valida:
         jogada = int(input('Quantas peças você vai tirar? '))
-        if jogada > m:
+        if jogada > m or jogada <= 0:
             print('\nOops! Jogada inválida! Tente de novo.')
         else:
             jogada_valida = True
