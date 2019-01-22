@@ -67,8 +67,20 @@ def type_token(texto):
     
     return "%.2f" %(nro_palavras_diferentes / len(lista_palavras))
 
-#-------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
+    
+def hapax_legomana(texto):
+    '''
+    Essa função recebe um texto e devolve a razão hapax legomana do texto
+    '''
+    lista_palavras = re.split(r'[.!?\s]+', texto)
+    lista_palavras.remove('')
+    nro_palavras_unicas = n_palavras_unicas(lista_palavras)
+    
+    return "%.2f" %(nro_palavras_unicas / len(lista_palavras))
 
+#------------------------------------------------------------------------------    
+    
 def separa_sentencas(texto):
     '''
     A funcao recebe um texto e devolve uma lista das sentencas dentro do texto
@@ -172,8 +184,8 @@ def main():
     textos = le_textos()
 
     for texto in textos:
-        ttl = type_token(texto)
-        print(ttl)
+        teste = hapax_legomana(texto)
+        print(teste)
     
 #------------------------------------------------------------------------------
     
