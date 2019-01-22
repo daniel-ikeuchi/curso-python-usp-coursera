@@ -41,6 +41,23 @@ def le_textos():
     return textos
 
 #------------------------------------------------------------------------------
+
+def tamanho_medio_palavras(texto):
+    '''
+    Essa funcao recebe um texto e deve devolver o tamanho médio
+    das palavras
+    '''
+    n_palavras = 0
+    total_caracteres = 0
+    lista_palavras = re.split(r'[.!?\s]+', texto)
+    
+    for p in lista_palavras:
+        n_palavras += 1
+        total_caracteres += len(p)
+        
+    return "%.2f" %(total_caracteres / n_palavras)
+     
+#------------------------------------------------------------------------------
     
 def separa_sentencas(texto):
     '''
@@ -136,31 +153,8 @@ def avalia_textos(textos, ass_cp):
 
 #------------------------------------------------------------------------------
     
-def tamanho_medio_palavras(texto):
-    '''
-    IMPLEMENTAR. Essa funcao recebe um texto e deve devolver o tamanho médio
-    das palavras
-    '''
-    n_palavras = 0
-    total_caracteres = 0
-    lista_palavras = re.split(r'[.!?\s]+', texto)
-    
-    for p in lista_palavras:
-        n_palavras += 1
-        total_caracteres += len(p)
-        
-    return "%.2f" %(total_caracteres / n_palavras)
-     
-#------------------------------------------------------------------------------
-    
 def main():
-    textos = le_textos()
-    
-    # Cálculo tamanho médio das palavras
-    for texto in textos:
-        tamanho_medio_palavras(texto)
-    
-    
+    pass   
 #------------------------------------------------------------------------------
     
 main()
