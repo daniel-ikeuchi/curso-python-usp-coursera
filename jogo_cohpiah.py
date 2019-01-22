@@ -61,9 +61,9 @@ def type_token(texto):
     Essa função recebe um texto e devolve a relação type-token das palavras
     '''
     lista_palavras = re.split(r'[.!?\s]+', texto)
-    nro_palavras_unicas = n_palavras_unicas(lista_palavras)
-
-    return "%.2f" %(nro_palavras_unicas / len(lista_palavras))
+    nro_palavras_diferentes = n_palavras_diferentes(lista_palavras)
+    
+    return "%.2f" %(nro_palavras_diferentes / len(lista_palavras))
 
 #-------------------------------------------------------------------------------
 
@@ -132,6 +132,7 @@ def n_palavras_diferentes(lista_palavras):
             freq[p] += 1
         else:
             freq[p] = 1
+            
 
     return len(freq)
 
