@@ -4,11 +4,10 @@ Created on Tue Jan 22 12:53:50 2019
 
 @author: Daniel
 
-Jogo COH-PIAH - projeto programa completo, semana 09 do curso Introdução à Ciência
-da Computação com Python Parte 1 (Coursera/USP)
+Jogo COH-PIAH - projeto programa completo, semana 09 do curso Introdução à 
+Ciência da Computação com Python Parte 1 (Coursera/USP)
 """
 #------------------------------------------------------------------------------
-
 import re
 
 def le_assinatura():
@@ -27,6 +26,8 @@ def le_assinatura():
 
     return [wal, ttr, hlr, sal, sac, pal]
 
+#------------------------------------------------------------------------------
+    
 def le_textos():
     i = 1
     textos = []
@@ -38,23 +39,41 @@ def le_textos():
 
     return textos
 
+#------------------------------------------------------------------------------
+    
 def separa_sentencas(texto):
-    '''A funcao recebe um texto e devolve uma lista das sentencas dentro do texto'''
+    '''
+    A funcao recebe um texto e devolve uma lista das sentencas dentro do texto
+    '''
     sentencas = re.split(r'[.!?]+', texto)
     if sentencas[-1] == '':
         del sentencas[-1]
     return sentencas
 
+#------------------------------------------------------------------------------
+    
 def separa_frases(sentenca):
-    '''A funcao recebe uma sentenca e devolve uma lista das frases dentro da sentenca'''
+    '''
+    A funcao recebe uma sentenca e devolve uma lista das frases dentro da 
+    sentenca
+    '''
     return re.split(r'[,:;]+', sentenca)
 
+#------------------------------------------------------------------------------
+    
 def separa_palavras(frase):
-    '''A funcao recebe uma frase e devolve uma lista das palavras dentro da frase'''
+    '''
+    A funcao recebe uma frase e devolve uma lista das palavras dentro da frase
+    '''
     return frase.split()
 
+#------------------------------------------------------------------------------
+    
 def n_palavras_unicas(lista_palavras):
-    '''Essa funcao recebe uma lista de palavras e devolve o numero de palavras que aparecem uma unica vez'''
+    '''
+    Essa funcao recebe uma lista de palavras e devolve o numero de palavras que
+    aparecem uma unica vez
+    '''
     freq = dict()
     unicas = 0
     for palavra in lista_palavras:
@@ -69,8 +88,13 @@ def n_palavras_unicas(lista_palavras):
 
     return unicas
 
+#------------------------------------------------------------------------------
+    
 def n_palavras_diferentes(lista_palavras):
-    '''Essa funcao recebe uma lista de palavras e devolve o numero de palavras diferentes utilizadas'''
+    '''
+    Essa funcao recebe uma lista de palavras e devolve o numero de palavras 
+    diferentes utilizadas
+    '''
     freq = dict()
     for palavra in lista_palavras:
         p = palavra.lower()
@@ -81,14 +105,32 @@ def n_palavras_diferentes(lista_palavras):
 
     return len(freq)
 
+#------------------------------------------------------------------------------
+    
 def compara_assinatura(as_a, as_b):
-    '''IMPLEMENTAR. Essa funcao recebe duas assinaturas de texto e deve devolver o grau de similaridade nas assinaturas.'''
+    '''
+    IMPLEMENTAR. Essa funcao recebe duas assinaturas de texto e deve devolver o
+    grau de similaridade nas assinaturas.
+    '''
     pass
 
+#------------------------------------------------------------------------------
+    
 def calcula_assinatura(texto):
-    '''IMPLEMENTAR. Essa funcao recebe um texto e deve devolver a assinatura do texto.'''
+    '''
+    IMPLEMENTAR. Essa funcao recebe um texto e deve devolver a assinatura do 
+    texto.
+    '''
     pass
 
+#------------------------------------------------------------------------------
+    
 def avalia_textos(textos, ass_cp):
-    '''IMPLEMENTAR. Essa funcao recebe uma lista de textos e deve devolver o numero (1 a n) do texto com maior probabilidade de ter sido infectado por COH-PIAH.'''
+    '''
+    IMPLEMENTAR. Essa funcao recebe uma lista de textos e deve devolver o 
+    numero (1 a n) do texto com maior probabilidade de ter sido infectado por 
+    COH-PIAH.
+    '''
     pass
+
+#------------------------------------------------------------------------------
