@@ -44,21 +44,29 @@ def le_textos():
 
 def tamanho_medio_palavras(texto):
     '''
-    Essa funcao recebe um texto e deve devolver o tamanho médio
-    das palavras
+    Essa funcao recebe um texto e devolve o tamanho médio das palavras
     '''
-    n_palavras = 0
     total_caracteres = 0
     lista_palavras = re.split(r'[.!?\s]+', texto)
     
     for p in lista_palavras:
-        n_palavras += 1
         total_caracteres += len(p)
         
-    return "%.2f" %(total_caracteres / n_palavras)
+    return "%.2f" %(total_caracteres / len(lista_palavras))
      
 #------------------------------------------------------------------------------
-    
+
+def type_token(texto):
+    '''
+    Essa função recebe um texto e devolve a relação type-token das palavras
+    '''
+    lista_palavras = re.split(r'[.!?\s]+', texto)
+    nro_palavras_unicas = n_palavras_unicas(lista_palavras)
+
+    return "%.2f" %(nro_palavras_unicas / len(lista_palavras))
+
+#-------------------------------------------------------------------------------
+
 def separa_sentencas(texto):
     '''
     A funcao recebe um texto e devolve uma lista das sentencas dentro do texto
@@ -94,8 +102,10 @@ def n_palavras_unicas(lista_palavras):
     '''
     freq = dict()
     unicas = 0
+
     for palavra in lista_palavras:
         p = palavra.lower()
+
         if p in freq:
             if freq[p] == 1:
                 unicas -= 1
@@ -114,8 +124,10 @@ def n_palavras_diferentes(lista_palavras):
     diferentes utilizadas
     '''
     freq = dict()
+
     for palavra in lista_palavras:
         p = palavra.lower()
+        
         if p in freq:
             freq[p] += 1
         else:
@@ -154,7 +166,12 @@ def avalia_textos(textos, ass_cp):
 #------------------------------------------------------------------------------
     
 def main():
-    pass   
+    textos = le_textos()
+
+    for texto in textos:
+        ttl = type_token(texto)
+        print(ttl)
+    
 #------------------------------------------------------------------------------
     
 main()
