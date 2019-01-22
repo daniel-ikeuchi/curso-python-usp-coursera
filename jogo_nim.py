@@ -10,7 +10,12 @@ da Computação com Python Parte 1 (Coursera/USP)
 #------------------------------------------------------------------------------
 
 def computador_escolhe_jogada(n, m):
-    return n % (m + 1)
+    if n <= m:
+        jogada = n
+    else:
+        jogada = n % (m + 1)
+        
+    return jogada
 
 #------------------------------------------------------------------------------
     
