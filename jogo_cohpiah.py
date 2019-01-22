@@ -48,6 +48,7 @@ def tamanho_medio_palavras(texto):
     '''
     total_caracteres = 0
     lista_palavras = re.split(r'[.!?\s]+', texto)
+    lista_palavras.remove('')
     
     for p in lista_palavras:
         total_caracteres += len(p)
@@ -61,6 +62,7 @@ def type_token(texto):
     Essa função recebe um texto e devolve a relação type-token das palavras
     '''
     lista_palavras = re.split(r'[.!?\s]+', texto)
+    lista_palavras.remove('')
     nro_palavras_diferentes = n_palavras_diferentes(lista_palavras)
     
     return "%.2f" %(nro_palavras_diferentes / len(lista_palavras))
