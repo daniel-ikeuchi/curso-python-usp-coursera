@@ -17,12 +17,12 @@ def le_assinatura():
     '''
     print("Bem-vindo ao detector automático de COH-PIAH.")
 
-    wal = float(input("Entre o tamanho medio de palavra:"))
-    ttr = float(input("Entre a relação Type-Token:"))
-    hlr = float(input("Entre a Razão Hapax Legomana:"))
-    sal = float(input("Entre o tamanho médio de sentença:"))
-    sac = float(input("Entre a complexidade média da sentença:"))
-    pal = float(input("Entre o tamanho medio de frase:"))
+    wal = float(input("Entre o tamanho medio de palavra: "))
+    ttr = float(input("Entre a relação Type-Token: "))
+    hlr = float(input("Entre a Razão Hapax Legomana: "))
+    sal = float(input("Entre o tamanho médio de sentença: "))
+    sac = float(input("Entre a complexidade média da sentença: "))
+    pal = float(input("Entre o tamanho medio de frase: "))
 
     return [wal, ttr, hlr, sal, sac, pal]
 
@@ -31,12 +31,12 @@ def le_assinatura():
 def le_textos():
     i = 1
     textos = []
-    texto = input("Digite o texto " + str(i) + " (aperte enter para sair):")
+    texto = input("Digite o texto " + str(i) + " (aperte enter para sair): ")
     while texto:
         textos.append(texto)
         i += 1
         texto = input("Digite o texto " + str(i) + 
-                      " (aperte enter para sair):")
+                      " (aperte enter para sair): ")
 
     return textos
 
@@ -211,38 +211,61 @@ def n_palavras_diferentes(lista_palavras):
     
 def compara_assinatura(as_a, as_b):
     '''
-    IMPLEMENTAR. Essa funcao recebe duas assinaturas de texto e deve devolver o
+    Essa funcao recebe duas assinaturas de texto e deve devolver o
     grau de similaridade nas assinaturas.
     '''
-    pass
+    somatoria = 0
+    
+    for i in range(len(as_a)):
+        somatoria += abs(as_a[i] - as_b[i])
+        
+    return somatoria / 6
 
 #------------------------------------------------------------------------------
     
 def calcula_assinatura(texto):
     '''
-    IMPLEMENTAR. Essa funcao recebe um texto e deve devolver a assinatura do 
+    Essa funcao recebe um texto e deve devolver a assinatura do 
     texto.
     '''
-    pass
+    wal = tamanho_medio_palavras(texto)
+    ttr = type_token(texto)
+    hlr = hapax_legomana(texto)
+    sal = tamanho_medio_sentencas(texto)
+    sac = complexidade_media_sentencas(texto)
+    pal = tamanho_medio_frases(texto)
+    
+    return [wal, ttr, hlr, sal, sac, pal]
 
 #------------------------------------------------------------------------------
     
 def avalia_textos(textos, ass_cp):
     '''
-    IMPLEMENTAR. Essa funcao recebe uma lista de textos e deve devolver o 
+    Essa funcao recebe uma lista de textos e deve devolver o 
     numero (1 a n) do texto com maior probabilidade de ter sido infectado por 
     COH-PIAH.
     '''
-    pass
+    infectado = 0
+    similaridade = 1000
+    
+    for texto in textos:
+        assinatura = calcula_assinatura(texto)
+        
+        if compara_assinatura(ass_cp, assinatura) < similaridade:
+            infectado += 1
+            similaridade = compara_assinatura(ass_cp, assinatura)
+            
+    return infectado
+    
 
 #------------------------------------------------------------------------------
     
 def main():
+    assinatura = le_assinatura()
     textos = le_textos()
-
-    for texto in textos:
-        teste = tamanho_medio_frases(texto)
-        print(teste)
+    nro_texto_infectado = avalia_textos(textos, assinatura)
+    
+    print('\nO autor do texto', nro_texto_infectado, 'está infectado com COH-PIAH')        
     
 #------------------------------------------------------------------------------
     
