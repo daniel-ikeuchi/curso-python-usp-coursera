@@ -118,6 +118,25 @@ def complexidade_media_sentencas(texto):
 
 #------------------------------------------------------------------------------
     
+def tamanho_medio_frases(texto):
+    '''
+    Esta função recebe um texto e devolve o tamanho médio das frases do
+    mesmo
+    '''
+    sentencas = separa_sentencas(texto)
+    total_caracteres = 0
+    nro_frases = 0
+    
+    for sentenca in sentencas:
+        frases = separa_frases(sentenca)
+        nro_frases += len(frases)
+        for frase in frases:
+            total_caracteres += len(frase)
+            
+    return total_caracteres / nro_frases
+
+#------------------------------------------------------------------------------
+    
 def separa_sentencas(texto):
     '''
     A funcao recebe um texto e devolve uma lista das sentencas dentro do texto
@@ -222,7 +241,7 @@ def main():
     textos = le_textos()
 
     for texto in textos:
-        teste = complexidade_media_sentencas(texto)
+        teste = tamanho_medio_frases(texto)
         print(teste)
     
 #------------------------------------------------------------------------------
