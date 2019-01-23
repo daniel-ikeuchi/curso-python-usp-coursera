@@ -47,13 +47,13 @@ def tamanho_medio_palavras(texto):
     Essa funcao recebe um texto e devolve o tamanho médio das palavras
     '''
     total_caracteres = 0
-    lista_palavras = re.split(r'[.!?\s]+', texto)
+    lista_palavras = re.split(r'[.,!?\s]+', texto)
     lista_palavras.remove('')
     
     for p in lista_palavras:
         total_caracteres += len(p)
         
-    return "%.2f" %(total_caracteres / len(lista_palavras))
+    return total_caracteres / len(lista_palavras)
      
 #------------------------------------------------------------------------------
 
@@ -61,11 +61,14 @@ def type_token(texto):
     '''
     Essa função recebe um texto e devolve a relação type-token das palavras
     '''
-    lista_palavras = re.split(r'[.!?\s]+', texto)
-    lista_palavras.remove('')
+    lista_palavras = re.split(r'[.,!?\s]+', texto)
+    
+    if lista_palavras[-1] == '':
+        del lista_palavras[-1]    
+        
     nro_palavras_diferentes = n_palavras_diferentes(lista_palavras)
     
-    return "%.2f" %(nro_palavras_diferentes / len(lista_palavras))
+    return nro_palavras_diferentes / len(lista_palavras)
 
 #------------------------------------------------------------------------------
     
@@ -73,11 +76,29 @@ def hapax_legomana(texto):
     '''
     Essa função recebe um texto e devolve a razão hapax legomana do texto
     '''
-    lista_palavras = re.split(r'[.!?\s]+', texto)
-    lista_palavras.remove('')
+    lista_palavras = re.split(r'[.,!?\s]+', texto)
+    
+    if lista_palavras[-1] == '':
+        del lista_palavras[-1]    
+    
     nro_palavras_unicas = n_palavras_unicas(lista_palavras)
     
-    return "%.2f" %(nro_palavras_unicas / len(lista_palavras))
+    return nro_palavras_unicas / len(lista_palavras)
+
+#------------------------------------------------------------------------------
+
+def tamanho_medio_sentencas(texto):
+    '''
+    Essa função recebe um texto e devolve o tamanho médio das sentenças do
+    mesmo
+    '''
+    sentencas = separa_sentencas(texto)
+    total_caracteres = 0
+    
+    for sentenca in sentencas:
+        total_caracteres += len(sentenca)
+        
+    return total_caracteres / len(sentencas)
 
 #------------------------------------------------------------------------------    
     
@@ -88,6 +109,7 @@ def separa_sentencas(texto):
     sentencas = re.split(r'[.!?]+', texto)
     if sentencas[-1] == '':
         del sentencas[-1]
+        
     return sentencas
 
 #------------------------------------------------------------------------------
@@ -184,7 +206,7 @@ def main():
     textos = le_textos()
 
     for texto in textos:
-        teste = hapax_legomana(texto)
+        teste = tamanho_medio_sentencas(texto)
         print(teste)
     
 #------------------------------------------------------------------------------
